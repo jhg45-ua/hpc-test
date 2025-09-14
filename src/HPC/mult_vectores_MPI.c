@@ -8,7 +8,7 @@ int main(int argc, char** argv) {
     long long n = 1000000002; // Cambia el tamaño si lo deseas
     int rank, size;
     long long local_n, start, end;
-    long long local_sum = 0, total_sum = 0;
+    long long local_mult = 0, total_mult = 0;
     char hostname[256];
 
     MPI_Init(&argc, &argv);
@@ -25,8 +25,8 @@ int main(int argc, char** argv) {
     int *a = malloc(local_n * sizeof(int));
     int *b = malloc(local_n * sizeof(int));
     for (long long i = 0; i < local_n; i++) {
-        a[i] = 1;
-        b[i] = 1;
+        a[i] = 3;
+        b[i] = 3;
     }
 
     double total_start = 0;
@@ -36,19 +36,19 @@ int main(int argc, char** argv) {
 
     double t0 = MPI_Wtime();
     for (long long i = 0; i < local_n; i++) {
-        local_sum += a[i] + b[i];
+        local_mult += a[i] * b[i];
     }
     double t1 = MPI_Wtime();
 
     printf("Nodo %s (rank %d): suma local = %lld, tiempo = %f segundos\n",
-           hostname, rank, local_sum, t1 - t0);
+           hostname, rank, local_mult, t1 - t0);
 
-    MPI_Reduce(&local_sum, &total_sum, 1, MPI_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&local_mult, &total_mult, 1, MPI_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
 
     if (rank == 0) {
         double total_end = MPI_Wtime();
         printf("\n--- RESUMEN ---\n");
-        printf("La suma total es: %lld\n", total_sum);
+        printf("La suma total es: %lld\n", total_mult);
         printf("Tiempo total de ejecución: %f segundos\n", total_end - total_start);
     }
 

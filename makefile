@@ -9,7 +9,7 @@ help:
 
 # Compilador y flags
 CC = gcc
-CFLAGS = -std=c23
+CFLAGS = -std=c23 -O3
 MPICC = mpicc
 BINDIR = bin
 NODOS = user1@hpc-node1 user1@hpc-node2

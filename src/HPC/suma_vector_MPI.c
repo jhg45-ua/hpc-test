@@ -5,7 +5,7 @@
 #include <unistd.h>
 
 int main(int argc, char** argv) {
-    long long n = 9999999999; // Array de 9 mil millones de elementos - 10ˆ9
+    long long n = 1000000002; // Array de 9 mil millones de elementos - 10ˆ9
     int rank, size;
     long long local_n, start, end;
     long long local_sum = 0, total_sum = 0;

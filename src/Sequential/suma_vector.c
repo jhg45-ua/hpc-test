@@ -4,7 +4,7 @@
 #include <unistd.h>
 
 int main() {
-    long long n = 9999999999; // Array de 9 mil millones de elementos - 10ˆ9
+    long long n = 1000000002; // Array de 9 mil millones de elementos - 10ˆ9
     long long sum = 0;
     char hostname[256];
 
