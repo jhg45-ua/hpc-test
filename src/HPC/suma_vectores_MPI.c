@@ -5,7 +5,7 @@
 #include <unistd.h>
 
 int main(int argc, char** argv) {
-    long long n = 3000; // Cambia el tamaño si lo deseas
+    long long n = 900000; // Cambia el tamaño si lo deseas
     int rank, size;
     long long local_n, start, end;
     long long local_sum = 0, total_sum = 0;
@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
     int *b = malloc(local_n * sizeof(int));
     for (long long i = 0; i < local_n; i++) {
         a[i] = 1;
-        b[i] = 2;
+        b[i] = 1;
     }
 
     double total_start = 0;

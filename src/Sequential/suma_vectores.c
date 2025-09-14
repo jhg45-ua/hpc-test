@@ -5,7 +5,7 @@
 #include <unistd.h>
 
 int main() {
-    long long n = 3000; // Cambia el tamaño si lo deseas
+    long long n = 900000; // Cambia el tamaño si lo deseas
     long long sum = 0;
     char hostname[256];
 
@@ -13,7 +13,7 @@ int main() {
     int *b = malloc(n * sizeof(int));
     for (long long i = 0; i < n; i++) {
         a[i] = 1;
-        b[i] = 2;
+        b[i] = 1;
     }
 
     gethostname(hostname, sizeof(hostname));
