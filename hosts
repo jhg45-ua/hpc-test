@@ -1,3 +1,4 @@
-hpc-master  slots=1
 hpc-node1   slots=1
 hpc-node2   slots=1
+hpc-node3   slots=1
+hpc-node4   slots=1

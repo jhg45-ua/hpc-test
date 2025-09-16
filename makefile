@@ -12,7 +12,8 @@ CC = gcc
 CFLAGS = -std=c23 -O3
 MPICC = mpicc
 BINDIR = bin
-NODOS = user1@hpc-node1 user1@hpc-node2
+NODOS = user1@hpc-node1 user1@hpc-node2 user1@hpc-node3 user1@hpc-node4
+NODE1 = user1@hpc-node1
 
 # Fuentes
 SEQ_SRC = $(wildcard src/Sequential/*.c)
@@ -23,22 +24,20 @@ SEQ_BIN = $(patsubst src/Sequential/%.c,$(BINDIR)/%,$(SEQ_SRC))
 MPI_BIN = $(patsubst src/HPC/%.c,$(BINDIR)/%,$(MPI_SRC))
 BIN = $(SEQ_BIN) $(MPI_BIN)
 
-GREEN = \\033[1;32m
-CYAN = \\033[1;36m
-YELLOW = \\033[1;33m
-RESET = \\033[0m
-
 $(BINDIR):
 	mkdir -p $(BINDIR)
 
-
 all: $(BINDIR) $(BIN)
+	@echo "Distribuyendo binarios MPI a todos los nodos..."
 	@for exe in $(MPI_BIN); do \
 		for nodo in $(NODOS); do \
 			scp $$exe $$nodo:~/hpc-test/bin/; \
 		done; \
 	done
-
+	@echo "Distribuyendo binarios secuenciales al node1..."
+	@for exe in $(SEQ_BIN); do \
+		scp $$exe $(NODE1):~/hpc-test/bin/; \
+	done
 
 # Regla para secuenciales
 $(BINDIR)/%: src/Sequential/%.c | $(BINDIR)
@@ -47,10 +46,6 @@ $(BINDIR)/%: src/Sequential/%.c | $(BINDIR)
 # Regla para MPI
 $(BINDIR)/%: src/HPC/%.c | $(BINDIR)
 	$(MPICC) $(CFLAGS) $< -o $@
-
-
-
-
 
 clean:
 	rm -rf $(BINDIR)/*

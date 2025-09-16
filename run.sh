@@ -39,11 +39,11 @@ for SELECCION in "${SELECCIONES[@]}"; do
     fi
     BIN_ELEGIDO="${BINARIOS[$((SELECCION-1))]}"
     if [[ "$BIN_ELEGIDO" == *_MPI ]]; then
-        echo -e "${CYAN}Ejecutando $BIN_ELEGIDO con mpirun...${RESET}"
-        mpirun -np 3 --hostfile hosts "$BINDIR/$BIN_ELEGIDO" | awk -v c="${CYAN}" -v r="${RESET}" '{print c"[MPI] "r $0}'
+        echo -e "${CYAN}Ejecutando $BIN_ELEGIDO con mpirun en los nodos de cómputo...${RESET}"
+        mpirun -np 8 --hostfile hosts "$BINDIR/$BIN_ELEGIDO" | awk -v c="${CYAN}" -v r="${RESET}" '{print c"[MPI] "r $0}'
     else
-        echo -e "${GREEN}Ejecutando $BIN_ELEGIDO...${RESET}"
-        "$BINDIR/$BIN_ELEGIDO" | awk -v c="${GREEN}" -v r="${RESET}" '{print c"[SEQ] "r $0}'
+        echo -e "${GREEN}Ejecutando $BIN_ELEGIDO en node1 de forma secuencial...${RESET}"
+        ssh user1@hpc-node1 "cd ~/hpc-test && ./bin/$BIN_ELEGIDO" | awk -v c="${GREEN}" -v r="${RESET}" '{print c"[SEQ@node1] "r $0}'
     fi
     echo -e "${BOLD}-----------------------------${RESET}"
 done
