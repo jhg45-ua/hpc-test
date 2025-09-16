@@ -1,4 +1,4 @@
-hpc-node1   slots=1
-hpc-node2   slots=1
-hpc-node3   slots=1
-hpc-node4   slots=1
+hpc-node1   slots=6
+hpc-node2   slots=6
+hpc-node3   slots=6
+hpc-node4   slots=6
